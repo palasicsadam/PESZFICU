@@ -4,6 +4,7 @@ from website import db
 from io import BytesIO
 from base64 import b64encode
 
+
 views = Blueprint('views', __name__)
 
 
