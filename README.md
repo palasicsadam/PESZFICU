@@ -5,6 +5,7 @@ Basic webserver for face recognition software
 - [x] Add, remove and list people
 - [x] Edit profiles
 - [x] Upload, download, delete and display images
+- [ ] Improved error handling
 - [ ] Authentication
 - [ ] Creating interface for camera
 - [ ] Improved looks
