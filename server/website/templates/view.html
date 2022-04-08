@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<form enctype="multipart/form-data" method="POST">
+	<h1 class="pt-5 pb-2">Profile</h1>
+	<table class="table">
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Description</th>
+				</tr>
+
+				<tr>
+					<td>{{ person.person_id }}</td>
+					<td>{{ person.name }}</td>
+					<td>{{ person.desc }}</td>
+				</tr>
+		{% if x %}
+				<tr>
+					<td><label for="name">Name</label>
+    				<input
+      				type="name"
+      				class="form-control"
+					id="name"
+					name="name"
+					placeholder="Edit name"/></td>
+					<td>{{ person.name }}</td>
+					<td>{{ person.desc }}</td>
+				</tr>
+		{% endif %}
+			</table>
+	<button type="submit" name="edit_profile" value="edit" class="btn btn-primary">Edit Profile</button>
+
+	<h1 class="pt-5 pb-2">List of Images</h1>
+
+	<table class="table">
+		{% if images is defined %}
+			{% for row in images.items() | batch(3) %}
+				<tr>
+					{% for id, img in row %}
+						{% if img is defined %}
+							<td style="text-align:center;">{{id}}&nbsp;<img style="max-width:150px; max-height:150px" src="data:;base64,{{ img }}"><br/>
+							<a href="{{ url_for('views.download', id=id) }}">Download</a>&emsp;
+							<a href="{{ url_for('views.delete', id=id) }}">Delete</a></td>
+						{% else %}
+							<td></td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+			{% endfor %}
+		{% else %}
+		<h5>This Person has no images. </h5>
+		{% endif %}
+	</table>
+
+	&nbsp;
+	<div><input type="file" name="input" />
+	<input type="submit" value="Upload Image"/></div>
+
+</form>
+{% endblock %}

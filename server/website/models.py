@@ -2,10 +2,22 @@ from datetime import datetime
 from . import db
 
 
-class Image(db.Model):
+class Images(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.Text, unique=True, nullable=False)
+    person_id = db.Column(db.Integer, db.ForeignKey('person.person_id'))
+    image = db.Column(db.Text, nullable=False)
+
+
+class Person(db.Model):
+    person_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False)
-    #person = db.Column(db.Text, nullable=False)
-    mimetype = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    desc = db.Column(db.Text)
+    image = db.relationship('Images')
+    report = db.relationship('Report')
+
+
+class Report(db.Model):
+    report_id = db.Column(db.Integer, primary_key=True)
+    person_id = db.Column(db.Integer, db.ForeignKey('person.person_id'))
+    camera = db.Column(db.Text, unique=True, nullable=False)
+    time = db.Column(db.DateTime, nullable=False)

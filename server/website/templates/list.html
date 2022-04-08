@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}List{% endblock %}
+
+{% block content %}
+
+<h1 class="pt-5 pb-2">List of People</h1>
+
+		<table class="table">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th></th>
+				<th></th>
+			</tr>
+
+			{% for person in ppl %}
+			<tr>
+				<td>{{ person.person_id }}</td>
+				<td>{{ person.name }}</td>
+				<td>{{ person.desc }}</td>
+                <th><a href="{{url_for('views.view', pid=person.person_id)}}">Edit profile</a></th>
+				<th><a href="{{url_for('views.remove', pid=person.person_id)}}">Remove profile</a></th>
+			</tr>
+			{% endfor %}
+		</table>
+
+{% endblock %}
