@@ -13,11 +13,11 @@
 
 				<tr>
                     <td>{{person.person_id}}</td>
-					<td><input type="name" id="name" name="name" placeholder="{{person.name}}" class="form-control"/></td>
+					<td><input type="text" id="name" name="name" placeholder="{{person.name}}" class="form-control"/></td>
 					{% if not person.desc %}
-					<td><input type="description" id="description" name="description" placeholder="No description" class="form-control"/></td>
+					<td><input type="text" id="description" name="description" placeholder="No description" class="form-control"/></td>
 					{% else %}
-					<td><input type="description" id="description" name="description" placeholder="{{person.desc}}" class="form-control"/></td>
+					<td><input type="text" id="description" name="description" placeholder="{{person.desc}}" class="form-control"/></td>
 					{% endif %}
 				</tr>
 			</table>

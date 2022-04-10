@@ -19,7 +19,7 @@
 				<td>{{ person.person_id }}</td>
 				<td>{{ person.name }}</td>
 				<td>{{ person.desc }}</td>
-                <th><a href="{{url_for('views.view', pid=person.person_id)}}">Edit profile</a></th>
+                <th><a href="{{url_for('views.view', pid=person.person_id)}}">View profile</a></th>
 				<th><a href="{{url_for('views.remove', pid=person.person_id)}}">Remove profile</a></th>
 			</tr>
 			{% endfor %}

@@ -19,7 +19,7 @@ def list():
 
     for person in ppl:
         if not person.desc:
-            person.desc='No description'
+            person.desc = 'No description'
 
     return render_template('list.html', ppl=ppl)
 
@@ -28,6 +28,7 @@ def list():
 def add():
     name = request.form.get('name')
     desc = request.form.get('description')
+
     if not name:
         flash('No name entered', category='error')
         return render_template('index.html')
@@ -35,7 +36,6 @@ def add():
     person = Person(name=name, desc=desc)
     db.session.add(person)
     db.session.commit()
-
     flash('Person has been successfully added')
 
     return render_template("index.html")
@@ -57,10 +57,10 @@ def view(pid):
 
     if len(data) != 0:
         for item in data:
-            img = b64encode(item.image).decode('utf-8')
-            img_id = item.id
-            images[img_id] = img
+            img = b64encode(item.image).decode('ascii')
+            images[item.id] = img
         return render_template('view.html', person=person, images=images, num_of_rows=num_of_rows)
+
     else:
         return render_template('view.html', person=person)
 
@@ -70,6 +70,7 @@ def remove(pid):
     Person.query.filter_by(person_id=pid).delete()
     Images.query.filter_by(person_id=pid).delete()
     db.session.commit()
+
     return redirect(url_for('views.list'))
 
 
@@ -78,25 +79,30 @@ def edit(pid):
     person = Person.query.get({'person_id': pid})
     name = request.form.get('name')
     desc = request.form.get('description')
+
     if not name and not desc:
         flash('Enter a name or description')
         return render_template('edit.html', person=person)
+
     if name:
         db.session.query(Person).filter(Person.person_id == pid).update({'name': name, 'desc': desc})
         db.session.commit()
         flash('Person\'s profile has successfully been updated')
+
     return redirect(url_for('views.view', pid=pid))
 
 
 @views.route('/view/<int:pid>', methods=['POST'])
 def upload(pid):
     input_file = request.files.get('input')
+
     if input_file:
         img = Images(image=input_file.read(), person_id=pid)
         db.session.add(img)
         db.session.commit()
         flash('Image has successfully been uploaded')
         return view(pid)
+
     if not input_file:
         flash('No image has been selected', category='error')  # appears when you click the edit button
         return view(pid)
@@ -107,6 +113,7 @@ def delete(id):
     img = Images.query.filter_by(id=id).first()
     Images.query.filter_by(id=id).delete()
     db.session.commit()
+
     return redirect(url_for('views.view', pid=img.person_id))
 
 
@@ -114,4 +121,13 @@ def delete(id):
 def download(id):
     img = Images.query.filter_by(id=id).first()
     file_name = str(img.person_id) + '_' + str(img.id) + '.jpg'
+
     return send_file(BytesIO(img.image), as_attachment=True, download_name=file_name)
+
+
+@views.route('/report', methods=['GET'])
+def reports():
+    reports = Report.query.order_by(Report.report_id).all()
+
+    return render_template('report.html', reports=reports)
+

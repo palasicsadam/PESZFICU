@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}List{% endblock %}
+
+{% block content %}
+
+<h1 class="pt-5 pb-2">List of Reports</h1>
+
+		<table class="table">
+			<tr>
+				<th>Report ID</th>
+				<th>Person Name</th>
+				<th>Image</th>
+				<th>Timestamp</th>
+			</tr>
+
+			{% for rep in reports %}
+			<tr>
+				<td>{{ rep.report_id }}</td>
+				<td>{{ rep.person_id }}</td>
+                <th><img style="max-width:150px; max-height:150px" src="data:;base64,{{ rep.image }}"></th>
+				<th>rep.time</th>
+			</tr>
+			{% endfor %}
+		</table>
+
+{% endblock %}

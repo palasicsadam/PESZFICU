@@ -1,4 +1,3 @@
-from datetime import datetime
 from . import db
 
 
@@ -19,5 +18,5 @@ class Person(db.Model):
 class Report(db.Model):
     report_id = db.Column(db.Integer, primary_key=True)
     person_id = db.Column(db.Integer, db.ForeignKey('person.person_id'))
-    camera = db.Column(db.Text, unique=True, nullable=False)
-    time = db.Column(db.DateTime, nullable=False)
+    camera = db.Column(db.Text, nullable=False)
+    image = db.Column(db.DateTime, nullable=False)
