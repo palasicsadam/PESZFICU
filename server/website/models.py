@@ -18,5 +18,6 @@ class Person(db.Model):
 class Report(db.Model):
     report_id = db.Column(db.Integer, primary_key=True)
     person_id = db.Column(db.Integer, db.ForeignKey('person.person_id'))
-    camera = db.Column(db.Text, nullable=False)
-    image = db.Column(db.DateTime, nullable=False)
+    camera_name = db.Column(db.Text, nullable=False)
+    time_stamp = db.Column(db.DateTime, nullable=False)
+    b64_image = db.Column(db.Text, nullable=False)

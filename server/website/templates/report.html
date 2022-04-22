@@ -8,7 +8,8 @@
 		<table class="table">
 			<tr>
 				<th>Report ID</th>
-				<th>Person Name</th>
+				<th>Person ID</th>
+				<th>Camera</th>
 				<th>Image</th>
 				<th>Timestamp</th>
 			</tr>
@@ -17,8 +18,9 @@
 			<tr>
 				<td>{{ rep.report_id }}</td>
 				<td>{{ rep.person_id }}</td>
-                <th><img style="max-width:150px; max-height:150px" src="data:;base64,{{ rep.image }}"></th>
-				<th>rep.time</th>
+				<td>{{ rep.camera_name }}</td>
+                <th><img style="max-width:150px; max-height:150px" src="data:;base64,{{ rep.b64_image }}"></th>
+				<th>{{ rep.time_stamp }}</th>
 			</tr>
 			{% endfor %}
 		</table>

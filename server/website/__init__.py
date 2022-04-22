@@ -19,7 +19,9 @@ def create_app():
         db.create_all()
 
     from .views import views
+    from .camera_routes import camera
 
     app.register_blueprint(views, url_prefix="/")
+    app.register_blueprint(camera, url_prefix='/camera')
 
     return app
