@@ -9,6 +9,7 @@
 			<tr>
 				<th>Report ID</th>
 				<th>Person ID</th>
+				<th>Person Name</th>
 				<th>Camera</th>
 				<th>Image</th>
 				<th>Timestamp</th>
@@ -17,7 +18,8 @@
 			{% for rep in reports %}
 			<tr>
 				<td>{{ rep.report_id }}</td>
-				<td>{{ rep.person_id }}</td>
+				<td><a href="{{url_for('views.view', pid=rep.person_id)}}">{{ rep.person_id }}</a></td>
+				<td>{{ rep.name }}</td>
 				<td>{{ rep.camera_name }}</td>
                 <th><img style="max-width:150px; max-height:150px" src="data:;base64,{{ rep.b64_image }}"></th>
 				<th>{{ rep.time_stamp }}</th>

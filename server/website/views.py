@@ -3,6 +3,7 @@ from website.models import Images, Person, Report
 from website import db
 from io import BytesIO
 from base64 import b64encode
+from sqlalchemy import desc, or_
 
 
 views = Blueprint('views', __name__)
@@ -127,7 +128,22 @@ def download(id):
 
 @views.route('/report', methods=['GET'])
 def reports():
-    reports = Report.query.order_by(Report.report_id).all()
-
-    return render_template('report.html', reports=reports)
+    args = request.args
+    query = db.session.query(Report.report_id,
+                             Report.person_id,
+                             Report.camera_name,
+                             Report.b64_image,
+                             Report.time_stamp,
+                             Person.name
+                             ).join(Person, Person.person_id == Report.person_id)
+    if args.get('filter'):
+        query = query.filter(
+            or_(
+                Person.name.like('%'+args['filter']+'%'),
+                Report.camera_name.like('%'+args['filter']+'%')
+            )
+        )
+    query = query.order_by(desc(Report.time_stamp))
+    result = query.all()
+    return render_template('report.html', reports=result)
 
