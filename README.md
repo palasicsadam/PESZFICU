@@ -1,4 +1,43 @@
-Basic webserver for face recognition software
+**SERVER DOCUMENTATION**
+
+
+main.py:
+
+  •	Running the server
+
+
+__init__.py:
+
+  •	Initializing database and the server
+
+  •	Registering blueprints
+  
+
+models.py:
+
+  •	Creating database tables
+
+
+views.py:
+
+  •	add function: adding people to database
+
+  •	list function: listing people from database
+
+  •	view function: displaying people and their images
+
+  •	edit function: editing people's profiles
+
+  •	remove function: removing people from database
+
+  •	upload function: uploading images to database
+
+  •	delete function: deleting images from the database
+
+  •	download function: downloading images
+
+  •	reports function: displaying reports sent from the face recognition software
+
 
 **TODO**
 
